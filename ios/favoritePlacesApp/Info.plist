@@ -53,6 +53,12 @@
 	<array>
 		<string>Ionicons.ttf</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app wants to access your galery.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app wants to access your camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app wants to access your microphone.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
