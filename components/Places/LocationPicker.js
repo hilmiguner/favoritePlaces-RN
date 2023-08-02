@@ -6,8 +6,12 @@ import Geolocation from "@react-native-community/geolocation";
 import { useState } from "react";
 import { getMapPreview } from "../../util/location";
 
+import { useNavigation } from "@react-navigation/native";
+
 function LocationPicker() {
     const [currentLocation, setCurrentLocation] = useState();
+
+    const navigation = useNavigation();
 
     function getLocationHandler() {
         Geolocation.getCurrentPosition(
@@ -16,11 +20,14 @@ function LocationPicker() {
         );
     }
 
-    function pickOnMapHandler() {}
+    function pickOnMapHandler() {
+        navigation.navigate("Map");
+    }
 
     let mapPreview = <Text>No location picked yet.</Text>;
     if(currentLocation) {
-        mapPreview = <Image style={styles.mapPreviewImage} source={{ uri: getMapPreview(currentLocation.latitude, currentLocation.longitude)}} />;
+        const uri = getMapPreview(currentLocation.latitude, currentLocation.longitude);
+        mapPreview = <Image style={styles.mapPreviewImage} source={{ uri: uri }} />;
     }
 
     return(
