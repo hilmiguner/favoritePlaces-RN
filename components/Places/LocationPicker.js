@@ -4,7 +4,7 @@ import { Colors } from "../../constants/colors";
 
 import Geolocation from "@react-native-community/geolocation";
 import { useEffect, useState } from "react";
-import { getMapPreview } from "../../util/location";
+import { getAddress, getMapPreview } from "../../util/location";
 
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
@@ -12,6 +12,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 function LocationPicker({ onPickLocation }) {
     const [currentLocation, setCurrentLocation] = useState();
+
     const isFocused = useIsFocused();
     
     const route = useRoute(); 
@@ -27,7 +28,13 @@ function LocationPicker({ onPickLocation }) {
     }, [route, isFocused]);
 
     useEffect(() => {
-        onPickLocation(currentLocation);
+        async function handleLocation() {
+            if(currentLocation) {
+                const address = await getAddress(currentLocation.latitude, currentLocation.longitude);
+                onPickLocation({ ...currentLocation, address: address });
+            }
+        }
+        handleLocation();
     }, [currentLocation, onPickLocation]);
 
     let initialLocation = { latitude: null, longitude: null };
