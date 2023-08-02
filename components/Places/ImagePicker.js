@@ -5,7 +5,7 @@ import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import { Colors } from "../../constants/colors";
 import OutlinedButton from "../UI/OutlinedButton";
 
-function ImagePicker() {
+function ImagePicker({ onTakeImage }) {
     const [imageUri, setImageUri] = useState();
 
     async function takeImageHandler() {
@@ -14,6 +14,7 @@ function ImagePicker() {
                 quality: 0.5,
             });
             setImageUri(response.assets[0].uri);
+            onTakeImage(response.assets[0].uri);
         }
         catch(error) {
         }

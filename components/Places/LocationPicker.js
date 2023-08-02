@@ -3,13 +3,32 @@ import OutlinedButton from "../UI/OutlinedButton";
 import { Colors } from "../../constants/colors";
 
 import Geolocation from "@react-native-community/geolocation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getMapPreview } from "../../util/location";
 
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 
-function LocationPicker() {
+function LocationPicker({ onPickLocation }) {
     const [currentLocation, setCurrentLocation] = useState();
+    const isFocused = useIsFocused();
+    
+    const route = useRoute(); 
+    const navigation = useNavigation();
+
+    
+    useEffect(() => {
+        let mapPickedLocation;
+        if(isFocused && route.params) {
+            mapPickedLocation = { latitude: route.params.pickedLatitude, longitude: route.params.pickedLongitude };
+        }
+        setCurrentLocation(mapPickedLocation);
+    }, [route, isFocused]);
+
+    useEffect(() => {
+        onPickLocation(currentLocation);
+    }, [currentLocation, onPickLocation]);
 
     let initialLocation = { latitude: null, longitude: null };
 
@@ -17,8 +36,6 @@ function LocationPicker() {
         (location) => {initialLocation = { latitude: location.coords.latitude, longitude: location.coords.longitude }},
         (error) => {Alert.alert("Error!", error.message)}
     );
-
-    const navigation = useNavigation();
 
     function getLocationHandler() {
         Geolocation.getCurrentPosition(
