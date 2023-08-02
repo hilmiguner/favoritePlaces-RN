@@ -11,6 +11,13 @@ import { useNavigation } from "@react-navigation/native";
 function LocationPicker() {
     const [currentLocation, setCurrentLocation] = useState();
 
+    let initialLocation = { latitude: null, longitude: null };
+
+    Geolocation.getCurrentPosition(
+        (location) => {initialLocation = { latitude: location.coords.latitude, longitude: location.coords.longitude }},
+        (error) => {Alert.alert("Error!", error.message)}
+    );
+
     const navigation = useNavigation();
 
     function getLocationHandler() {
@@ -21,7 +28,7 @@ function LocationPicker() {
     }
 
     function pickOnMapHandler() {
-        navigation.navigate("Map");
+        navigation.navigate("Map", { latitude: initialLocation.latitude, longitude: initialLocation.longitude });
     }
 
     let mapPreview = <Text>No location picked yet.</Text>;
