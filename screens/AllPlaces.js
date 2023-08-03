@@ -13,14 +13,13 @@ function AllPlaces() {
         if(isFocused) {
             initData().then((places) => {
                 setLoadedPlaces(places);
-                setTimeout(() => setDbInitialized(true), 2000);
-                
+                setDbInitialized(true)
             }).catch((error) => console.log("REALM ERROR [" + new Date().toString() + "]: " + error));
         }
     }, [isFocused]);
 
     if(!dbInitialized) {
-        return <LoadingScreen />;
+        return <LoadingScreen>Loading your favorite places!</LoadingScreen>;
     }
 
     return(

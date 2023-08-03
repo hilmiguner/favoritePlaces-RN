@@ -2,20 +2,29 @@ import { UpdateMode } from "realm";
 import realmDB from "./realm";
 
 export function addPlace(place) {
-    realmDB.write(() => {
-        realmDB.create(
-            "Places",
-            {
-                id: place.id,
-                title: place.title,
-                imageUri: place.imageUri,
-                address: place.address,
-                lat: place.location.latitude,
-                lng: place.location.longitude,
-            },
-            UpdateMode.Modified,
-        );
+    const promise = new Promise((resolve, reject) => {
+        try {
+            realmDB.write(() => {
+                realmDB.create(
+                    "Places",
+                    {
+                        id: place.id,
+                        title: place.title,
+                        imageUri: place.imageUri,
+                        address: place.address,
+                        lat: place.location.latitude,
+                        lng: place.location.longitude,
+                    },
+                    UpdateMode.Modified,
+                );
+            });
+            resolve();
+        }
+        catch(error) {
+            reject();
+        }
     });
+    return promise;
 }
 
 export function initData() {

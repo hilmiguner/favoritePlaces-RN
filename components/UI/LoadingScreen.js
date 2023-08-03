@@ -1,10 +1,10 @@
 import { View, ActivityIndicator, StyleSheet, Text } from "react-native";
 import { Colors } from "../../constants/colors";
 
-function LoadingScreen() {
+function LoadingScreen({ children }) {
     return(
         <View style={styles.rootContainer}>
-            <Text style={styles.text}>Loading the favorite places!</Text>
+            <Text style={styles.text}>{children}</Text>
             <ActivityIndicator />
         </View>
     );
