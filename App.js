@@ -1,16 +1,27 @@
 import AllPlaces from "./screens/AllPlaces";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar, Text } from "react-native";
+import { StatusBar } from "react-native";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
 
 import Map from "./screens/Map";
+import { useEffect, useState } from "react";
+import LoadingScreen from "./components/UI/LoadingScreen";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const [dbInitialized, setDbInitialized] = useState(false);
+
+  useEffect(() => {
+  }, []);
+
+  if(!dbInitialized) {
+    return <LoadingScreen/>;
+  }
+
   return(
     <>
       <StatusBar barStyle="dark-content"/>
