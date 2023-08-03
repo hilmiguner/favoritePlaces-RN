@@ -7,21 +7,9 @@ import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
 
 import Map from "./screens/Map";
-import { useEffect, useState } from "react";
-import LoadingScreen from "./components/UI/LoadingScreen";
-
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [dbInitialized, setDbInitialized] = useState(false);
-
-  useEffect(() => {
-  }, []);
-
-  if(!dbInitialized) {
-    return <LoadingScreen/>;
-  }
-
   return(
     <>
       <StatusBar barStyle="dark-content"/>
@@ -33,7 +21,7 @@ function App() {
         }}>
           <Stack.Screen 
             name="AllPlaces" 
-            component={AllPlaces} 
+            component={AllPlaces}
             options={({ navigation }) => ({
               title: "Your Favorite Places",
               headerRight: ({ tintColor }) => (
