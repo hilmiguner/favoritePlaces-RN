@@ -39,3 +39,18 @@ export function initData() {
     });
     return promise
 }
+
+export function getByID(id) {
+    const promise = new Promise((resolve, reject) => {
+        try {
+            initData().then((allPlaces) => {
+                const place = allPlaces.find((place) => place.id === id);
+                resolve(place);
+            });
+        }
+        catch(error) {
+            reject();
+        }
+    });
+    return promise;
+}
