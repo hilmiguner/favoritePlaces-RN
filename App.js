@@ -10,6 +10,7 @@ import Map from "./screens/Map";
 import PlaceDetails from "./screens/PlaceDetails";
 const Stack = createNativeStackNavigator();
 
+
 function App() {
   return(
     <>

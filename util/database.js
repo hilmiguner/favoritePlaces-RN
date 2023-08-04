@@ -1,4 +1,5 @@
 import { UpdateMode } from "realm";
+import { useQuery } from "@realm/react";
 import realmDB from "./realm";
 
 export function addPlace(place) {
@@ -46,6 +47,24 @@ export function getByID(id) {
             initData().then((allPlaces) => {
                 const place = allPlaces.find((place) => place.id === id);
                 resolve(place);
+            });
+        }
+        catch(error) {
+            reject();
+        }
+    });
+    return promise;
+}
+
+export function deleteByID(id) {
+    const promise = new Promise((resolve, reject) => {
+        try {
+            initData().then((allPlaces) => {
+                const place = allPlaces.find((place) => place.id === id);
+                realmDB.write(() => {
+                    realmDB.delete(place);
+                });
+                resolve();
             });
         }
         catch(error) {
