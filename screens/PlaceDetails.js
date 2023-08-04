@@ -30,15 +30,18 @@ function PlaceDetails({ route, navigation }) {
     }
 
     return(
-        <ScrollView>
+        <View style={{ flex: 1,}}>
             <Image source={{ uri: fetchedPlace.imageUri }} style={styles.image}/>
             <View style={styles.locationContainer}>
                 <View style={styles.addressContainer}>
                     <Text style={styles.address}>{fetchedPlace.address}</Text>
                 </View>
-                <OutlinedButton icon="map" onPress={showOnMapHandler}>View on Map</OutlinedButton>
+                <View style={styles.buttonContainer}>
+                    <OutlinedButton icon="map" onPress={showOnMapHandler} width={160}>View on Map</OutlinedButton>
+                    <OutlinedButton icon="trash" onPress={null} color={Colors.error} width={300}>Delete</OutlinedButton>
+                </View>
             </View>
-        </ScrollView>
+        </View>
     );
 }
 
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     locationContainer: {
+        flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -62,5 +66,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         fontSize: 16,
+    },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: "space-between",
+        marginBottom: 12,
+        alignItems: "center",
+        alignSelf: "stretch",
     },
 });

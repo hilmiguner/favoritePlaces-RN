@@ -4,11 +4,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Colors } from "../../constants/colors";
 
 
-function OutlinedButton({ onPress, icon, children}) {
+function OutlinedButton({ onPress, icon, children, color, width }) {
     return(
-        <Pressable style={({ pressed }) => [styles.button, pressed && styles.pressed]} onPress={onPress}>
-            <Ionicons style={styles.icon} name={icon} size={18} color={Colors.primary500}/>
-            <Text style={styles.text}>{children}</Text>
+        <Pressable style={({ pressed }) => [styles.button, pressed && styles.pressed, color && { borderColor: color}, { width: width }]} onPress={onPress}>
+            <Ionicons style={styles.icon} name={icon} size={18} color={color ? color : Colors.primary500}/>
+            <Text style={[styles.text, color && { color: color }]}>{children}</Text>
         </Pressable>
     );
 }
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderWidth: 1,
         borderColor: Colors.primary500,
+        minWidth: 150,
     },
     pressed: {
         opacity: 0.7,
